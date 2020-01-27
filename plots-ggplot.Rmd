@@ -24,5 +24,8 @@ library(here) #install.packages("here")
 
 ```{r read-data}
 ca_np <- read_csv(here("data", "ca_np.csv"))
+c1_np <- read_xlsx(here("data", "ci_np.xlsx"))
+ci_np <- read_xlsx(here("data", "ci_np.xlsx"))
+
 ```
 
