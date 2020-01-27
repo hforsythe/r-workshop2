@@ -7,3 +7,16 @@ output: html_document
 # Plots with ggplot2
 
 We are going to make plots in R using ghe ggplot2 package from the tidyverse
+
+Install packages:   
+- tidyverse: wranling & viz (ggplot)  
+- readxl: read excel files  
+- here: help with file paths  
+
+
+```{r setup, message=FALSE}
+library(tidyverse) # install.packages("tidyverse")
+library(readxl) #install.packages("readxl")
+library(here) #install.packages("here")
+```
+
