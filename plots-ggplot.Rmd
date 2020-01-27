@@ -26,6 +26,43 @@ library(here) #install.packages("here")
 ca_np <- read_csv(here("data", "ca_np.csv"))
 c1_np <- read_xlsx(here("data", "ci_np.xlsx"))
 ci_np <- read_xlsx(here("data", "ci_np.xlsx"))
+```
 
+### Make my own first graph
+
+Line plot year vs visitation in ggplot
+
+```{r}
+ggplot(ci_np, aes(year, visitors))+
+  geom_point()
+```
+
+
+Make a base layer for plot
+```{r}
+gg_base <- ggplot(ci_np, aes(year, visitors))
+
+gg_base + geom_point()
+```
+
+### Let's start customizing
+- line of point color
+- line type
+- point style: pch
+- transparency: aplha
+
+```{r}
+gg_base +
+  geom_point(
+    color = "red",
+    pch = 2,
+    size = 2)
+```
+### Update aes based on variables
+
+```{r}
+gg_base+
+  geom_point(
+    aes(size = visitors, color = year))
 ```
 
