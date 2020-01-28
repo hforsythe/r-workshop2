@@ -9,5 +9,13 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
-testdata <- read_csv(here("data", "TestData.csv")
+testdata <- read_csv(here("data", "TestData.csv"))
 ```
+
+## what's the problem?
+
+```{r}
+testdata <- str_detect()
+```
+
+?str_detect
