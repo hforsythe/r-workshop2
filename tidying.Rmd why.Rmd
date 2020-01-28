@@ -1,0 +1,110 @@
+---
+title: "Tidying Session or Something"
+author: "Herb"
+date: "1/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+
+# Attaching packages
+library(tidyverse)
+library(janitor) #install.packages("janitor")
+library(here)
+library(readxl)
+```
+
+### Read inverts
+
+```{r}
+inverts <- read_xlsx(here("data", "inverts.xlsx"))
+```
+
+## `pivot_longer()`
+
+Use single : to indicate a series of cols
+```{r}
+inverts_long <- pivot_longer(data = inverts,
+                             cols = '2016':'2018',
+                             names_to = "year",
+                             values_to = "sp_count")
+```
+
+# back to wide format
+```{r}
+inverts_wide <- inverts_long %>%
+  pivot_wider(names_from = common_name,
+              values_from = sp_count)
+```
+
+### use `janitor::clean_names()`
+```{r}
+inverts_wide <- inverts_wide %>%
+  clean_names()
+```
+
+### use `tidyr::unite()` to combine infornmation from columns
+Example: merge site name and year into "site_year"
+```{r}
+inverts_unite <- inverts_long %>%
+  unite(col = "site_year",
+        c(site, year),
+        sep = "_")
+```
+
+### Activity:
+create a new object "inverts_moyr" starting from
+inverts_long that unites month and year into a single column "mo_yr" sep = "/"
+```{r}
+invert_moyr <- inverts_long %>% 
+  unite(col = "mo_yr",
+    c(month, year),
+        sep = ".")
+?unite
+```
+
+### `tidyr::separate()`
+
+```{r}
+inverts_sep <- inverts_unite %>% 
+  separate(col = "site_year",
+           into = c("my_site", "my_year"))
+```
+
+###  `stringr` + `mutate()`
+use "trees" built-in data set - add 5 to all Heights
+
+```{r}
+trees_new <- 
+  trees %>% 
+  mutate(height_update = Height + 5)
+```
+
+### use `str_replace()`
+
+```{r}
+ca_abbr <- inverts %>% 
+  mutate(common_name = str_replace(common_name, pattern = "california", replacement = "CA"))
+```
+
+###
+IN THE COMMON_NAME COLUMN, REPLACE "SPINY" with "awesome"
+```{r}
+awesome_lobsters <- inverts %>% 
+  mutate(common_name = str_replace(common_name, pattern = "spiny", replacement = "awesome"))
+```
+
+## QUESTION
+
+```{r}
+home_data <- c("room", "")
+
+name %>% str_detect("\\(")
+
+name %>% str_locate("\\(")
+
+name_sep <- name %>% 
+  separate(name, "\\(")
+```
+
