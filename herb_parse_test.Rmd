@@ -9,13 +9,22 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
+library(here)
 testdata <- read_csv(here("data", "TestData.csv"))
 ```
 
 ## what's the problem?
 
 ```{r}
-testdata <- str_detect()
+testdata %>% mutate(test1 = str_detect(Memo, "\\("))
+testdata %>% mutate(test2 = str_locate(Memo, "\\("))
+
+str_locate()
+  str_detect(Memo, "a")
+View(testdata)
+colnames(testdata)
+colname
+
 ```
 
 ?str_detect
